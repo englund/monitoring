@@ -2,6 +2,8 @@
 
 A collection of server monitoring and maintenance scripts.
 
+And yes, this is vibe coded, use at your own risk 🥳
+
 ## Scripts
 
 ### `check_docker_updates.sh`
