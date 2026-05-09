@@ -1,14 +1,24 @@
-# Monitoring
+# monitoring
 
 A collection of server monitoring and maintenance scripts.
-
-And yes, this is vibe coded, use at your own risk 🥳
 
 ## Scripts
 
 ### `check_docker_updates.sh`
 
 Checks all running Docker Compose services for available image updates by querying the registry directly — no pulls, no side effects. Optionally updates specific or all outdated services via Compose.
+
+**Ignoring services**
+
+Add the `monitoring.ignore` label to any service you manage updates for yourself:
+
+```yaml
+services:
+  qbittorrent-nox:
+    image: ...
+    labels:
+      - monitoring.ignore=true
+```
 
 **Usage**
 

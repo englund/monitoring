@@ -140,7 +140,13 @@ for entry in "${containers[@]}"; do
 
     echo -e "  Service : ${compose_service} (${compose_file})"
 
-    # ── Digest check (no pull — registry API only) ────────────────────────────
+    # ── Ignore label check ────────────────────────────────────────────────────
+    ignore=$(docker inspect --format='{{index .Config.Labels "monitoring.ignore"}}' "$container_name" 2>/dev/null || true)
+    if [[ "$ignore" == "true" ]]; then
+        echo -e "  Status  : ${YELLOW}⊘ Ignored${RESET}"
+        echo ""
+        continue
+    fi
     # Get the local digest from the running image
     local_digest=$(docker inspect --format='{{index .RepoDigests 0}}' "$image" 2>/dev/null \
         | sed 's/.*@//' || true)
